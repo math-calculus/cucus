@@ -16,6 +16,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: [],
+  modules: ["@nuxt/fonts"],
+  fonts: {},
   ssr: false
 });

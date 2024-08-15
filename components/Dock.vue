@@ -1,75 +1,84 @@
 <template>
   <div class="dock fixed bottom-[25px] left-0 right-0 p-4 flex justify-center">
     <div
-      class="bg-[#fff]/[.08] p-2 rounded-[18px] flex pl-2 space-x-2 items-center"
+      class="bg-[#fff]/[.08] p-2 rounded-[18px] flex pl-2 space-x-2 items-center backdrop-blur-sm"
       :class="dockWidthClass"
     >
-      <template v-for="(obj, index) in visibleDock" :key="obj.name">
+      <template v-for="obj in visibleDock" :key="obj.name">
         <button
-          v-if="obj.type == 'app'"
-          href="#"
+          v-if="isApp(obj)"
           class="app-icon flex items-center justify-center w-18 h-18 transition-all duration-100 ease-in-out transform active:scale-95 active:brightness-75 hover:brightness-80 select-none outline-none"
           @click="openApp(obj)"
         >
           <img :src="obj.icon" :alt="obj.name" class="w-16 h-16" draggable="false" />
         </button>
-        <div
-          v-else-if="obj.type == 'divider'"
-          class="w-[2px] h-14 bg-white/10 mx-2"
-        ></div>
+        <div v-else-if="isDivider(obj)" class="w-[2px] h-14 bg-white/10 mx-2"></div>
       </template>
       <div class="w-[2px] h-14 bg-white/10 mx-2"></div>
-      <!-- 固定分隔线 -->
       <button
         class="app-icon flex items-center justify-center w-18 h-18 transition-all duration-100 ease-in-out transform active:scale-95 active:brightness-75 hover:brightness-80 select-none outline-none"
-        @click="emit('openAppLibrary')"
+        @click="showAppLibraryModal = true"
       >
-        <img :src="appLibrary.icon" :alt="'App Library'" class="w-16 h-16 select-none" />
+        <img :src="appLibrary.icon" :alt="'App Library'" class="w-16 h-16 select-none" draggable="false" />
       </button>
     </div>
+
+    <!-- 引用 AppLibrary 组件 -->
+    <AppLibrary
+      :visible="showAppLibraryModal"
+      @close="showAppLibraryModal = false"
+      @changeApp="openApp"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref, onMounted, onBeforeUnmount } from "vue";
-
+import type { App } from "~/appLibrary";
 import apps from "~/appLibrary";
-apps.map((app) => {
-  app.type = "app";
-  return app;
-});
+import AppLibrary from "./AppLibrary.vue"; // 引用 AppLibrary 组件
+
+interface DockItem extends App {
+  type: "app" | "divider";
+}
 
 const emit = defineEmits(["changeApp", "openAppLibrary"]);
 
 const maxVisibleApps = 7;
-const visibleDock = ref([]);
+const visibleDock = ref<DockItem[]>([]);
+const showAppLibraryModal = ref(false); // 添加模态框状态
 
 const calculateVisibleDock = () => {
-  const appCount = apps.filter((item) => item.type === "app").length;
+  const appCount = apps.length;
   const screenWidth = window.innerWidth;
   const maxAppsByWidth = Math.floor((screenWidth - 32 - 80) / 80);
   const visibleAppCount = Math.min(appCount, maxVisibleApps, maxAppsByWidth);
-  visibleDock.value = apps.slice(0, visibleAppCount);
+  visibleDock.value = apps
+    .slice(0, visibleAppCount)
+    .map((app) => ({ ...app, type: "app" } as DockItem));
 };
 
 const dockWidthClass = computed(() => {
   const appCount = visibleDock.value.filter((item) => item.type === "app").length;
-  const totalWidth = appCount * 72 + (appCount - 1) * 8 + 2 + 80; // 总宽度，包含分隔线
+  const totalWidth = appCount * 72 + (appCount - 1) * 8 + 2 + 80;
   return `max-w-[${totalWidth}px]`;
 });
 
-function openApp(app: any) {
+const openApp = (app: App) => {
   if (app.url) {
     window.open(app.url, "_blank");
   } else {
     emit("changeApp", app);
   }
-}
+};
 
-const appLibrary = {
-  type: "appLibrary",
+const appLibrary: App = {
+  name: "App Library",
   icon: "/appIcon/Library.svg",
 };
+
+const isApp = (item: DockItem): boolean => item.type === "app";
+const isDivider = (item: DockItem): boolean => item.type === "divider";
 
 onMounted(() => {
   calculateVisibleDock();
@@ -77,7 +86,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("resize", calculateVisibleDock); // 清理事件监听器
+  window.removeEventListener("resize", calculateVisibleDock);
 });
 </script>
 

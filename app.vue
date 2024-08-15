@@ -38,8 +38,8 @@ function changeApp(app) {
   }
 }
 .appEaseIn-enter-active {
-  -webkit-animation: scale-up-center 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.05s both;
-  animation: scale-up-center 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.05s both;
+  -webkit-animation: scale-up-center 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.05s both;
+  animation: scale-up-center 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.05s both;
 }
 .appEaseIn-enter {
   transform: scale(0.8);

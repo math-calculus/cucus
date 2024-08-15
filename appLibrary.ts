@@ -3,6 +3,7 @@ import Music from "./components/Music.vue";
 import About from "./components/About.vue";
 import Weather from './components/Weather.vue';
 import Monitor from './components/Monitor.vue';
+import Lus from './components/Lus.vue';
 
 export interface App {
     name: string;
@@ -21,6 +22,7 @@ export const apps: App[] =  [
     {
         name: "Lus",
         icon: "/appIcon/Lus.svg",
+        component: Lus,
     },
     {
         name: "Cloud",
