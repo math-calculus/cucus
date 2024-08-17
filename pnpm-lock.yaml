@@ -11,12 +11,12 @@ importers:
       NeteaseCloudMusicApi:
         specifier: ^4.22.0
         version: 4.22.0
+      axios:
+        specifier: ^1.7.4
+        version: 1.7.4
       nuxt:
         specifier: ^3.12.4
         version: 3.12.4(@parcel/watcher@2.4.1)(@types/node@22.2.0)(ioredis@5.4.1)(magicast@0.3.4)(rollup@4.20.0)(terser@5.31.5)(vite@5.4.0(@types/node@22.2.0)(terser@5.31.5))
-      openmeteo:
-        specifier: ^1.1.4
-        version: 1.1.4
       vue:
         specifier: latest
         version: 3.4.37(typescript@5.5.4)
@@ -737,10 +737,6 @@ packages:
     peerDependencies:
       vue: ^3.3.4
 
-  '@openmeteo/sdk@1.14.1':
-    resolution: {integrity: sha512-KGdpae5/BAPukD1mWa7uRLoawT96H2yZrDSkQ+tukmDpj+YlwLVVQNVVpJVudzFQiXGzGjlO+y5U0bzh5YvXPA==}
-    engines: {node: '>=12.0'}
-
   '@parcel/watcher-android-arm64@2.4.1':
     resolution: {integrity: sha512-LOi/WTbbh3aTn2RYddrO8pnapixAziFl6SMxHM69r3tvdSm94JtCenaKgk1GRg5FJ5wpMCpHeW+7yqPlvZv7kg==}
     engines: {node: '>= 10.0.0'}
@@ -1257,8 +1253,8 @@ packages:
     peerDependencies:
       postcss: ^8.1.0
 
-  axios@1.7.3:
-    resolution: {integrity: sha512-Ar7ND9pU99eJ9GpoGQKhKf58GpUOgnzuaB7ueNQ5BMi0p+LZ5oaEnfF999fAArcTIBwXTCHAmGcHOZJaWPq9Nw==}
+  axios@1.7.4:
+    resolution: {integrity: sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==}
 
   b4a@1.6.6:
     resolution: {integrity: sha512-5Tk1HLk6b6ctmjIkAcU/Ujv/1WqiDl0F0JdRCR80VsOcUlHcu7pWeWRlOqQLHfDEsVx9YH/aif5AG4ehoCtTmg==}
@@ -1924,9 +1920,6 @@ packages:
   find-up@4.1.0:
     resolution: {integrity: sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==}
     engines: {node: '>=8'}
-
-  flatbuffers@24.3.25:
-    resolution: {integrity: sha512-3HDgPbgiwWMI9zVB7VYBHaMrbOO7Gm0v+yD2FV/sCKj+9NDeVL7BOBYUuhWAQGKWOzBo8S9WdMvV0eixO233XQ==}
 
   flatted@3.3.1:
     resolution: {integrity: sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==}
@@ -2663,10 +2656,6 @@ packages:
   openapi-typescript@6.7.6:
     resolution: {integrity: sha512-c/hfooPx+RBIOPM09GSxABOZhYPblDoyaGhqBkD/59vtpN21jEuWKDlM0KYTvqJVlSYjKs0tBcIdeXKChlSPtw==}
     hasBin: true
-
-  openmeteo@1.1.4:
-    resolution: {integrity: sha512-TalTDl0M7JJoeRTf+rWiFZ9SLvoxm7KkFLOQqcSjCiYs+bVMhax1qtryJqeZ1RF4W4Xfsgcl9x+VC1z39ULCxA==}
-    engines: {node: '>=12.0'}
 
   p-limit@2.3.0:
     resolution: {integrity: sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==}
@@ -4583,10 +4572,6 @@ snapshots:
       - vti
       - vue-tsc
 
-  '@openmeteo/sdk@1.14.1':
-    dependencies:
-      flatbuffers: 24.3.25
-
   '@parcel/watcher-android-arm64@2.4.1':
     optional: true
 
@@ -4986,7 +4971,7 @@ snapshots:
 
   NeteaseCloudMusicApi@4.22.0:
     dependencies:
-      axios: 1.7.3
+      axios: 1.7.4
       crypto-js: 4.2.0
       express: 4.19.2
       express-fileupload: 1.5.1
@@ -5127,7 +5112,7 @@ snapshots:
       postcss: 8.4.41
       postcss-value-parser: 4.2.0
 
-  axios@1.7.3:
+  axios@1.7.4:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0
@@ -5856,8 +5841,6 @@ snapshots:
     dependencies:
       locate-path: 5.0.0
       path-exists: 4.0.0
-
-  flatbuffers@24.3.25: {}
 
   flatted@3.3.1: {}
 
@@ -6769,11 +6752,6 @@ snapshots:
       supports-color: 9.4.0
       undici: 5.28.4
       yargs-parser: 21.1.1
-
-  openmeteo@1.1.4:
-    dependencies:
-      '@openmeteo/sdk': 1.14.1
-      flatbuffers: 24.3.25
 
   p-limit@2.3.0:
     dependencies:

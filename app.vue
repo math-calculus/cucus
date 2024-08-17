@@ -10,11 +10,11 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { shallowRef } from "vue";
 import Logo from "./components/Logo.vue";
 import Dock from "./components/Dock.vue";
 
-const usingApp = ref(Logo);
+const usingApp = shallowRef(Logo);
 
 function changeApp(app) {
   usingApp.value = app.component || Logo;

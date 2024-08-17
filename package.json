@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "NeteaseCloudMusicApi": "^4.22.0",
+    "axios": "^1.7.4",
     "nuxt": "^3.12.4",
-    "openmeteo": "^1.1.4",
     "vue": "latest"
   },
   "devDependencies": {

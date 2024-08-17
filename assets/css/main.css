@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.text{
-    @apply font-['MiSans'];
+.text {
+    font-family: 'MiSans';
+}
+
+button {
+    @apply select-none outline-none;
 }
