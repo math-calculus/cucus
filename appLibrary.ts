@@ -1,9 +1,9 @@
 
-import Music from "./components/Music.vue";
-import About from "./components/About.vue";
-import Weather from './components/Weather.vue';
-import Monitor from './components/Monitor.vue';
-import Lus from './components/Lus.vue';
+import Music from "./components/app/Music.vue";
+import About from "./components/app/About.vue";
+import Weather from './components/app/Weather.vue';
+import Monitor from './components/app/Monitor.vue';
+import Lus from './components/app/Lus.vue';
 
 export interface App {
     name: string;

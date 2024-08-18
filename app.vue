@@ -2,27 +2,37 @@
   <body class="bg-black flex items-center justify-center min-h-screen flex-col">
     <main class="flex-grow flex items-center justify-center pb-[100px] w-full easeIn">
       <transition name="appEaseIn" mode="out-in">
-        <component :is="usingApp" :key="usingApp.name" @changeApp="changeApp" @openAppLibrary="" />
+        <component
+          :is="usingApp"
+          :key="usingAppName"
+          @changeApp="changeApp"
+          @openAppLibrary=""
+          v-if="usingAppName != 'Music'"
+        />
+      </transition>
+      <transition name="appEaseIn" mode="out-in">
+        <AppMusic v-show="usingAppName == 'Music'" class="absolute inset-0 h-full overflow-auto"/>
       </transition>
     </main>
     <Dock @changeApp="changeApp" />
+    <AudioPlayer />
   </body>
 </template>
 
 <script setup>
-import { shallowRef } from "vue";
-import Logo from "./components/Logo.vue";
-import Dock from "./components/Dock.vue";
+import Logo from "./components/app/Logo.vue";
+import Dock from "./components/app/Dock.vue";
 
 const usingApp = shallowRef(Logo);
+const usingAppName = shallowRef('Logo');
 
 function changeApp(app) {
+  usingAppName.value = app.name || 'Logo';
   usingApp.value = app.component || Logo;
 }
 </script>
 
 <style scoped>
-
 @keyframes scale-up-center {
   0% {
     -webkit-transform: scale(0.85);
@@ -38,7 +48,8 @@ function changeApp(app) {
   }
 }
 .appEaseIn-enter-active {
-  -webkit-animation: scale-up-center 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.05s both;
+  -webkit-animation: scale-up-center 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.05s
+    both;
   animation: scale-up-center 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.05s both;
 }
 .appEaseIn-enter {

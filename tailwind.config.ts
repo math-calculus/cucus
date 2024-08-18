@@ -12,5 +12,9 @@ export default {
     extend: {},
   },
   plugins: [],
+  safelist: [
+    'scale-80',
+    'scale-100'
+  ]
 }
 

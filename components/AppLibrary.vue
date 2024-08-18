@@ -48,13 +48,3 @@ const openApp = (app: App) => {
   }
 };
 </script>
-
-<style scoped>
-.fade-blur-enter-active, .fade-blur-leave-active {
-  transition: opacity 0.23s, filter 0.23s;
-}
-.fade-blur-enter-from, .fade-blur-leave-to {
-  opacity: 0;
-  filter: blur(7px);
-}
-</style>

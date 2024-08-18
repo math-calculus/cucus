@@ -36,7 +36,7 @@
 import { computed, ref, onMounted, onBeforeUnmount } from "vue";
 import type { App } from "~/appLibrary";
 import apps from "~/appLibrary";
-import AppLibrary from "./AppLibrary.vue"; // 引用 AppLibrary 组件
+import AppLibrary from "../AppLibrary.vue"; // 引用 AppLibrary 组件
 
 interface DockItem extends App {
   type: "app" | "divider";
