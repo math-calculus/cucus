@@ -44,7 +44,3 @@ watch(
   }
 );
 </script>
-
-<style scoped>
-/* 这里可以添加其他样式 */
-</style>

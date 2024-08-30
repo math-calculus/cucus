@@ -1,7 +1,7 @@
 <template>
   <div class="dock fixed bottom-[25px] left-0 right-0 p-4 flex justify-center">
     <div
-      class="bg-[#fff]/[.08] p-2 rounded-[18px] flex pl-2 space-x-2 items-center backdrop-blur-sm"
+      class="bg-[#fff]/[.08] p-2 rounded-[18px] flex pl-2 space-x-2 items-center backdrop-blur-sm border border-black/[.08] border-[1]"
       :class="dockWidthClass"
     >
       <template v-for="obj in visibleDock" :key="obj.name">
@@ -23,7 +23,6 @@
       </button>
     </div>
 
-    <!-- 引用 AppLibrary 组件 -->
     <AppLibrary
       :visible="showAppLibraryModal"
       @close="showAppLibraryModal = false"
@@ -36,8 +35,6 @@
 import { computed, ref, onMounted, onBeforeUnmount } from "vue";
 import type { App } from "~/appLibrary";
 import apps from "~/appLibrary";
-import AppLibrary from "../AppLibrary.vue"; // 引用 AppLibrary 组件
-
 interface DockItem extends App {
   type: "app" | "divider";
 }
@@ -46,7 +43,7 @@ const emit = defineEmits(["changeApp", "openAppLibrary"]);
 
 const maxVisibleApps = 7;
 const visibleDock = ref<DockItem[]>([]);
-const showAppLibraryModal = ref(false); // 添加模态框状态
+const showAppLibraryModal = ref(false);
 
 const calculateVisibleDock = () => {
   const appCount = apps.length;

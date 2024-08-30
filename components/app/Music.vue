@@ -9,7 +9,6 @@
             transform: isPlaying ? 'scale(1)' : 'scale(0.85)',
           }"
           class="rounded-[24px] w-[330px] h-[330px] max-w-none max-h-none transition-transform duration-300 ease-in-out bg-cover bg-center"
-          @error="imgError = true"
           draggable="false"
         ></div>
         <div class="text-2xl font-medium pt-6">{{ playingSong.title }}</div>
@@ -60,7 +59,6 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import UiProgress from "@/components/ui/Progress.vue"; // 导入新组件
 
 const playlistId = 12217075508;
 const playlist = ref([]);
@@ -71,7 +69,25 @@ const playingSong = ref({
   url: "",
   lrc: "",
 });
-const imgError = ref(false);
+const audio = ref(null);
+const currentTime = ref(0);
+const duration = ref(0);
+const isPlaying = ref(false);
+const playingIndex = ref(0);
+
+const playMusic = () => {
+  if (audio.value && useOpenedMusic().value) {
+    audio.value.play();
+    isPlaying.value = true;
+  }
+};
+
+const pauseMusic = () => {
+  if (audio.value) {
+    audio.value.pause();
+    isPlaying.value = false;
+  }
+};
 
 const fetchPlaylist = async () => {
   const res = await fetch(
@@ -79,22 +95,12 @@ const fetchPlaylist = async () => {
   );
   const data = await res.json();
   playlist.value = data;
-  console.log(data);
   if (playlist.value.length > 0) {
     playingSong.value = playlist.value[0];
     playingIndex.value = 0;
-    if (audio.value) {
-      audio.value.play();
-      isPlaying.value = true;
-    }
+    playMusic();
   }
 };
-
-const audio = ref(null);
-const currentTime = ref(0);
-const duration = ref(0);
-const isPlaying = ref(false);
-const playingIndex = ref(0);
 
 const updateTime = () => {
   if (audio.value) {
@@ -117,10 +123,9 @@ const seekAudio = (time) => {
 const togglePlayPause = () => {
   if (audio.value) {
     if (audio.value.paused) {
-      audio.value.play();
-      isPlaying.value = true;
+      playMusic();
     } else {
-      audio.value.pause();
+      pauseMusic();
       isPlaying.value = false;
     }
   }
@@ -132,10 +137,6 @@ const skipPre = () => {
     playingIndex.value =
       (playingIndex.value + playlist.value.length) % playlist.value.length;
     playingSong.value = playlist.value[playingIndex.value];
-    if (audio.value) {
-      audio.value.play();
-      isPlaying.value = true;
-    }
   }
 };
 
@@ -144,10 +145,7 @@ const skipNxt = () => {
     playingIndex.value++;
     playingIndex.value = playingIndex.value % playlist.value.length;
     playingSong.value = playlist.value[playingIndex.value];
-    if (audio.value) {
-      audio.value.play();
-      isPlaying.value = true;
-    }
+    playMusic();
   }
 };
 
@@ -156,6 +154,7 @@ onMounted(() => {
   if (audio.value) {
     audio.value.addEventListener("timeupdate", updateTime);
     audio.value.addEventListener("loadedmetadata", updateDuration);
+    audio.value.addEventListener("loadedmetadata", playMusic);
   }
 });
 </script>

@@ -11,7 +11,10 @@
         />
       </transition>
       <transition name="appEaseIn" mode="out-in">
-        <AppMusic v-show="usingAppName == 'Music'" class="absolute inset-0 h-full overflow-auto"/>
+        <AppMusic
+          v-show="usingAppName == 'Music'"
+          class="absolute inset-0 h-full overflow-auto"
+        />
       </transition>
     </main>
     <Dock @changeApp="changeApp" />
@@ -24,11 +27,14 @@ import Logo from "./components/app/Logo.vue";
 import Dock from "./components/app/Dock.vue";
 
 const usingApp = shallowRef(Logo);
-const usingAppName = shallowRef('Logo');
+const usingAppName = shallowRef("Logo");
 
 function changeApp(app) {
-  usingAppName.value = app.name || 'Logo';
+  usingAppName.value = app.name || "Logo";
   usingApp.value = app.component || Logo;
+  if (app.name === "Music") {
+    useOpenedMusic().value = true;
+  }
 }
 </script>
 

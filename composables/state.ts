@@ -3,3 +3,5 @@ export const useWeatherSetting = () => useState("weatherSetting", () => {
         city: "济宁市"
     }
 })
+
+export const useOpenedMusic = () => useState("openedMusic", () => false)
